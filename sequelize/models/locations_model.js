@@ -2,11 +2,11 @@
 const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
 	sequelize.define('locations', {
-        ciudad: {
+        city: {
             type: DataTypes.STRING,
             allowNull: false,
           },
-          provincia: {
+          province: {
             type: DataTypes.STRING,
             allowNull: true,
           },

@@ -14,8 +14,22 @@ async function create(req, res) {
 		res.status(201).end();
 	}
 };
+
+async function getById(req, res) {
+	const id = getIdParam(req);
+	const products = await models.products.findByPk(id);
+	if (products) {
+		res.status(200).json(products);
+	} else {
+		res.status(404).send('404 - Not found');
+	}
+}; 
+
+
 module.exports = {
     getAll,
-    create
+    create,
+    getById
+
     
 };

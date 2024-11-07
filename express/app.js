@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const app = express();
+const cors = require('cors');
 
 const routes = {
     customers: require('./routes/customers'), 
@@ -9,8 +11,7 @@ const routes = {
     products:require('./routes/products')
 };
 
-const app = express();
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -44,10 +45,22 @@ for (const [routeName, routeController] of Object.entries(routes)) {
     }
 }
 
+app.get(`/api/customers/:id/sales`,
+	makeHandlerAwareOfAsyncErrors(routes.customers.listSales)
+);
+app.get(`/api/sales/:id/products`,
+	makeHandlerAwareOfAsyncErrors(routes.sales.listProducts)
+);
 
-app.get('/', (req, res) => {
-    res.send('<h2>Bienvenido al CRM de Ventas</h2>');
-});
+app.post(`/api/sales/:id/products`,
+	makeHandlerAwareOfAsyncErrors(routes.sales.addProduct)
+);
 
+app.put('/api/sales/:saleId/items/:productId', 
+    makeHandlerAwareOfAsyncErrors(routes.sale_items.update)
+);
+app.delete('/api/sales/:saleId/items/:productId',   
+    makeHandlerAwareOfAsyncErrors(routes.sale_items.remove)
+);
 
 module.exports = app;
