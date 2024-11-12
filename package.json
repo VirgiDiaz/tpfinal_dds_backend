@@ -5,10 +5,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=dev NODE_CONFIG_DIR=./config/ nodemon -w src --exec \"npx babel-node ./index.js --presets es2015,stage-0\""
-   },
-   
-   
-  "presets": ["@babel/preset-env"],
+  },
+  "presets": [
+    "@babel/preset-env"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -17,7 +17,7 @@
     "axios": "^1.7.7",
     "cors": "^2.8.5",
     "express": "^4.21.1",
-    "sequelize": "^6.37.4",
+    "sequelize": "^6.37.5",
     "tedious": "^18.6.1"
   },
   "devDependencies": {
