@@ -9,14 +9,14 @@ async function getAll(req, res) {
 
   const filterOptions = {};
   
-  // Filtrar por nombre o apellido si están presentes
+  
   if (name || lastName) {
     filterOptions[Op.or] = [];
     if (name) filterOptions[Op.or].push({ name: { [Op.like]: `%${name}%` } });
     if (lastName) filterOptions[Op.or].push({ lastName: { [Op.like]: `%${lastName}%` } });
   }
 
-  // Filtrar por ciudad directamente si está presente
+  
   if (city) {
     filterOptions["$location.city$"] = { [Op.like]: `%${city}%` };
   }
@@ -26,7 +26,7 @@ async function getAll(req, res) {
       where: filterOptions,
       include: {
         model: models.locations,
-        as: "location", // asegúrate de que "location" sea el alias correcto en tu modelo
+        as: "location", 
       },
     });
     res.status(200).json(customers);
